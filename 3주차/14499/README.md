@@ -1,4 +1,4 @@
-## 14888. 연산자 끼워넣기
+## 14499. 주사위 굴리기
 https://www.acmicpc.net/problem/14499
 
 code by
