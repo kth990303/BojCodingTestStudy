@@ -35,10 +35,7 @@ visited = [[0]*m for _ in range(n)]
 dx = [1, -1, 0, 0]
 dy = [0, 0, 1, -1]
 result = 0
-maxval = 0
-
-for i in arr:
-    maxval = max(maxval, max(i))
+maxval = max(map(max, arr))
 
 for i in range(n):
     for j in range(m):
