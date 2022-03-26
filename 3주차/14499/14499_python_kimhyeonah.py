@@ -7,15 +7,15 @@
 import sys
 input = sys.stdin.readline
 def spin(cmd):
-    temp = dice
-    if cmd == 1:
-        dice[0], dice[1], dice[2], dice[3], dice[4], dice[5] = temp[3], temp[1], temp[0], temp[5], temp[4], temp[2]
-    elif cmd == 2:
-        dice[0], dice[1], dice[2], dice[3], dice[4], dice[5] = temp[2], temp[1], temp[5], temp[0], temp[4], temp[3]
-    elif cmd == 3:
-        dice[0], dice[1], dice[2], dice[3], dice[4], dice[5] = temp[4], temp[0], temp[2], temp[3], temp[5], temp[1]
-    else:
-        dice[0], dice[1], dice[2], dice[3], dice[4], dice[5] = temp[1], temp[5], temp[2], temp[3], temp[0], temp[4]
+    match cmd:
+        case 1:
+            dice[0], dice[1], dice[2], dice[3], dice[4], dice[5] = dice[3], dice[1], dice[0], dice[5], dice[4], dice[2]
+        case 2:
+            dice[0], dice[1], dice[2], dice[3], dice[4], dice[5] = dice[2], dice[1], dice[5], dice[0], dice[4], dice[3]
+        case 3:
+            dice[0], dice[1], dice[2], dice[3], dice[4], dice[5] = dice[4], dice[0], dice[2], dice[3], dice[5], dice[1]
+        case 4:
+            dice[0], dice[1], dice[2], dice[3], dice[4], dice[5] = dice[1], dice[5], dice[2], dice[3], dice[0], dice[4]
         
 n, m, x, y, k = map(int, input().split())
 graph = [list(map(int, input().split())) for _ in range(n)]
