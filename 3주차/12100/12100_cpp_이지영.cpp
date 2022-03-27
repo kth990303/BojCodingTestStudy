@@ -1,5 +1,4 @@
 #include <iostream>
-#include <stdlib.h>
 #include <algorithm>
 using namespace std;
 
@@ -8,31 +7,25 @@ int board[21][21];
 bool visit[21];
 int maxx = 0;
 
-void init_visit() {
-    for (int k = 1; k <= N; k++) {
-        visit[k] = false;
-    }
-}
 void left() {
     for (int i = 1; i <= N; i++) {
         int tmp = 0;
         for (int j = 1; j <= N; j++) {
-            if (board[i][j] != 0 ) {
-                if(tmp == 0){tmp = board[i][j];//0이고 비교값 없을 때
-                }
-                else {
-                    if (tmp == board[i][j]) {//비교값과 같을 때
-                        for (int k = 1; k <= N; k++) {
-                            if (visit[k] == false) {
-                                board[i][k] = tmp * 2; visit[k] = true; tmp = 0; break;
-                            }
+            if (!board[i][j]) {
+                if (!tmp) { tmp = board[i][j]; continue; }
+                //0이고 비교값 없을 때
+                
+                if (tmp == board[i][j]) {//비교값과 같을 때
+                    for (int k = 1; k <= N; k++) {
+                        if (visit[k] == false) {
+                            board[i][k] = tmp * 2; visit[k] = true; tmp = 0; break;
                         }
                     }
-                    else { //비교값과 같지않을 때 다음 값 비교값으로
-                        for (int k = 1; k <= N; k++) {
-                            if (visit[k] == false) {
-                                board[i][k] = tmp; visit[k] = true; tmp = board[i][j]; break;
-                            }
+                }
+                else { //비교값과 같지않을 때 다음 값 비교값으로
+                    for (int k = 1; k <= N; k++) {
+                        if (visit[k] == false) {
+                            board[i][k] = tmp; visit[k] = true; tmp = board[i][j]; break;
                         }
                     }
                 }
@@ -45,10 +38,17 @@ void left() {
                 }
             }
         }
+        //if (tmp != 0) {
+        //    int* indexx = min_element(board[i], board[i] + 21);//방문하지 않은 가장 작은 index
+        //    if (visit[*indexx] == false) {
+        //        board[i][*indexx] = tmp; visit[*indexx] = true; break;
+        //    }
+        //} min element가 여러개 생겨서 오류 발생
+ 
         for (int k = 1; k <= N; k++) { //합쳐진 이후 이전 블록 0으로
             if (visit[k] == false) { board[i][k] =0;  }
         }
-        init_visit();
+        memset(visit, false, sizeof(visit));
     }
 }
 void right() {
@@ -84,10 +84,11 @@ void right() {
                 }
             }
         }
+        
         for (int k = N; k >= 1; k--) { //합쳐진 이후 이전 블록 0으로
             if (visit[k] == false) { board[i][k] = 0; }
         }
-        init_visit();
+        memset(visit, false, sizeof(visit));
     }
 }
 void up() {
@@ -126,7 +127,7 @@ void up() {
         for (int k = 1; k <= N; k++) { //합쳐진 이후 이전 블록 0으로
             if (visit[k] == false) { board[k][i] = 0; }
         }
-        init_visit();
+        memset(visit, false, sizeof(visit));
     }
 }
 void down() {
@@ -162,10 +163,11 @@ void down() {
                 }
             }
         }
+        
         for (int k = N; k >= 1; k--) { //합쳐진 이후 이전 블록 0으로
             if (visit[k] == false) { board[k][i] = 0; }
         }
-        init_visit();
+        memset(visit, false, sizeof(visit));
     }
 }
 
@@ -179,12 +181,14 @@ void AtoA(int arr1[21][21], int arr2[21][21]) {
         }
     }
 }
+
 void move(int cnt) {    
     if (cnt == 5) { //가장 큰 블럭
         for (int i = 1; i <= N; i++) {
             for (int j = 1; j <= N; j++) {
                 if (maxx < board[i][j]) {
                     maxx = board[i][j];
+                    
                 }
             }
         }
@@ -222,14 +226,13 @@ int main(void)
         }
     }
     move(0);
-    //left();
+    
     /*for (int i = 1; i <= N; i++) {
         for (int j = 1; j <= N; j++) {
             cout << board[i][j]<<" ";
         }
         cout << "\n";
     }*/
-    cout << maxx;
 
-    return 0;
+    cout << maxx; exit(0);
 }
