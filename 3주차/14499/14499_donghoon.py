@@ -3,7 +3,7 @@ input = lambda: sys.stdin.readline().rstrip()
 mis = lambda: map(int, input().split())
 
 dice = [0] * 6
-new_dice = lambda a, b, c, d, e, f: [dice[a], dice[b], dice[c], dice[d], dice[e], dice[f]]
+new_dice = lambda *a: [dice[x] for x in a]
 
 """
 0: upperside
