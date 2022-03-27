@@ -2,11 +2,15 @@ H, W = map(int, input().split())
 g = [list(map(int, input().split())) for i in range(H)]
 v = [[0] * W for i in range(H)]
 
+max_value = max(map(max, g))
 ans = 0
 def dfs(y, x, block, val):
     global ans
     if block == 4:
         ans = max(ans, val)
+        return
+
+    if val + (max_value * (4-block)) < ans:
         return
 
     for ty, tx in ((y, x+1), (y, x-1), (y+1, x), (y-1, x)):
