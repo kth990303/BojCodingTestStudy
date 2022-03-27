@@ -5,7 +5,6 @@
 
 
 import sys
-from copy import deepcopy
 input = sys.stdin.readline
 
 def up(graph):
@@ -86,10 +85,9 @@ def dfs(count, graph):
         result = max(result, max(map(max, graph)))
         return
     
-    dfs(count+1, up(deepcopy(graph)))
-    dfs(count+1, down(deepcopy(graph)))
-    dfs(count+1, left(deepcopy(graph)))
-    dfs(count+1, right(deepcopy(graph)))
+    f = [up, down, left, right]
+    for func in f:
+        dfs(count+1, func([[k for k in p] for p in graph]))
 
 n = int(input())
 graph = [list(map(int, input().split())) for _ in range(n)]
