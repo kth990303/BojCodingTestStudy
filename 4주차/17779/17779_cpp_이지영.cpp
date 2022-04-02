@@ -2,6 +2,7 @@
 #include <algorithm>
 #include<cstring>
 #include <cmath>
+#include <limits.h>
 using namespace std;
 
 int N;
@@ -12,15 +13,12 @@ int gapp = 999999; //선거구당 인구 차이의 최솟값 출력용
 void getgap() {
     //4. 선거구 별 인구차이 구하기
     int jh[6] = { 0 };//재현의 jh: 각 선거구별 인구 저장
-    int minn = 9999999; //틀린 원인이 된 코드
-    int maxx = 0; // 0<A[r][c]<101
+    int minn = INT_MAX; //틀린 원인이 된 코드
+    int maxx = INT_MIN; // 0<A[r][c]<101
+    //자료형의 최대/최솟값
     for (int i = 1; i <= N; i++) {
         for (int j = 1; j <= N; j++) {
-            if (visit[i][j] == 1) jh[1] += A[i][j];
-            if (visit[i][j] == 2) jh[2] += A[i][j];
-            if (visit[i][j] == 3) jh[3] += A[i][j];
-            if (visit[i][j] == 4) jh[4] += A[i][j];
-            if (visit[i][j] == 5) jh[5] += A[i][j];
+            jh[visit[i][j]] += A[i][j];
         }
         //셀프pr: 큰 차이 없을 것 같지만 switch 문을 쓸지 if문을 쓸지 성능차이 알아보기
     }
@@ -69,19 +67,20 @@ void grid(int x, int y, int d1, int d2) {
     //3. 나머지 선거구 번호 입력
     for (int i = 1; i <= N; i++) {
         for (int j = 1; j <= N; j++) {
-            if (visit[i][j] != 5 && i >= 1 && i < x + d1 && 1 <= j && j <= y) {
+            if(visit[i][j] == 5) { continue; }
+            if (i >= 1 && i < x + d1 && 1 <= j && j <= y) {
                 visit[i][j] = 1;
                 continue;
             }
-            if (visit[i][j] != 5 && i >= 1 && i <= x + d2 && y < j && j <= N) {
+            if (i >= 1 && i <= x + d2 && y < j && j <= N) {
                 visit[i][j] = 2;
                 continue;
             }
-            if (visit[i][j] != 5 && x + d1 <= i && i <= N && 1 <= j && j < y - d1 + d2) {
+            if (x + d1 <= i && i <= N && 1 <= j && j < y - d1 + d2) {
                 visit[i][j] = 3;
                 continue;
             }
-            if (visit[i][j] != 5 && x + d2 < i && i <= N && y - d1 + d2 <= j && j <= N) {
+            if (x + d2 < i && i <= N && y - d1 + d2 <= j && j <= N) {
                 visit[i][j] = 4;
                 continue;
             }
