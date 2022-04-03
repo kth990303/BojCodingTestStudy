@@ -8,7 +8,7 @@ using namespace std;
 int N;
 int A[21][21] = { 0 }; //재현시 각 구역의 인구
 int visit[21][21] = { 0 };//선거구 번호 입력
-int gapp = 999999; //선거구당 인구 차이의 최솟값 출력용
+int gapp = INT_MAX; //선거구당 인구 차이의 최솟값 출력용
 
 void getgap() {
     //4. 선거구 별 인구차이 구하기
@@ -70,19 +70,15 @@ void grid(int x, int y, int d1, int d2) {
             if(visit[i][j] == 5) { continue; }
             if (i >= 1 && i < x + d1 && 1 <= j && j <= y) {
                 visit[i][j] = 1;
-                continue;
             }
-            if (i >= 1 && i <= x + d2 && y < j && j <= N) {
+            else if (i >= 1 && i <= x + d2 && y < j && j <= N) {
                 visit[i][j] = 2;
-                continue;
             }
-            if (x + d1 <= i && i <= N && 1 <= j && j < y - d1 + d2) {
+            else if (x + d1 <= i && i <= N && 1 <= j && j < y - d1 + d2) {
                 visit[i][j] = 3;
-                continue;
             }
-            if (x + d2 < i && i <= N && y - d1 + d2 <= j && j <= N) {
+            else if (x + d2 < i && i <= N && y - d1 + d2 <= j && j <= N) {
                 visit[i][j] = 4;
-                continue;
             }
         }
     }
