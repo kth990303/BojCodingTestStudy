@@ -7,7 +7,7 @@ using namespace std;
 
 int N, M;
 char A[10][10]; //보드 문자 입력 위해 char형
-bool endd = false;
+bool endd;
 
 struct xy {
     int x, y;
@@ -19,10 +19,10 @@ int dx[4] = { 0, 1, 0, -1 };
 int dy[4] = { -1, 0, 1, 0 }; //좌 하 우 상
 
 
-void escape(int cnt) {
-    if (cnt > 10) { return; } //10번 이상 이동
-    int rx = r[0].x; int ry = r[0].y;
-    int bx = b[0].x; int by = b[0].y; //지역변수에 위치 다시 넣기
+bool escape(int cnt, int rx, int ry, int bx, int by) {
+    if (cnt > 10) { return endd; } //10번 이상 이동
+    //int rx = r[0].x; int ry = r[0].y;
+    //int bx = b[0].x; int by = b[0].y; //지역변수에 위치 다시 넣기
 
     for (int i = 0; i < 4; i++) {
         bool r_end = false, b_end = false;
@@ -41,7 +41,7 @@ void escape(int cnt) {
             else if (A[nby + dy[i]][nbx + dx[i]] == '#') { break; }
         }
         if (b_end) { continue; }
-        else if (r_end) { endd = true; return; }
+        else if (r_end) { endd = true; return endd; }
 
         if (nrx == nbx && nry == nby) {
             if (i == 0) {
@@ -61,14 +61,10 @@ void escape(int cnt) {
                 //빨간공이 더 오른쪽에서 시작
             }
         }
-        r[0].x = nrx; r[0].y = nry;
-        b[0].x = nbx; b[0].y = nby;
-        escape(cnt + 1); //변화된 값으로 백트래킹
+        escape(cnt + 1, nrx, nry, nbx, nby); //변화된 값으로 백트래킹
 
-        r[0].x = rx; r[0].y = ry;
-        b[0].x = bx; b[0].y = by;
-        //for문 안에선 변화되기 전 값으로
     }
+    return endd;
 }
 int main(void)
 {
@@ -85,7 +81,6 @@ int main(void)
             //r, b 위치 저장하고 다시 .으로 설정
         }
     }
-    escape(1);
-    endd ? cout << 1 : cout << 0; //성공하면 1 아니면 0
+    escape(1, r[0].x, r[0].y, b[0].x, b[0].y) ? cout << 1 : cout << 0; //성공하면 1 아니면 0
     return 0;
 }
