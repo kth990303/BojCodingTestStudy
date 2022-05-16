@@ -4,6 +4,9 @@
 # In[ ]:
 
 
+import sys
+input = sys.stdin.readline
+
 def choose_block(typ, rotate):
     tetromino = [[], [[1, 0], [1, 1], [0, 1]], [[0, 1], [1, 1], [1, 0]], [[1, 0], [1, 0], [1, 1]], [[0, 1], [0, 1], [1, 1]],
         [[1, 1], [1, 1]], [[1], [1], [1], [1]], [[0, 1, 0], [1, 1, 1]]]
@@ -41,6 +44,7 @@ def clear(graph, w, h):
     for i in temp[::-1]:
         del graph[i]
     graph = [['.']*w for _ in range(len(temp))] + graph
+    return graph
 
 def sol():
     w, h, n = map(int, input().split())
@@ -50,7 +54,7 @@ def sol():
     for typ, rotate, fall in blocks:
         block = choose_block(typ, rotate)
         if not check(graph, block, h, fall): break
-        clear(graph, w, h)
+        graph = clear(graph, w, h)
     else:
         print('\n'.join(map(''.join, graph)))
         return
