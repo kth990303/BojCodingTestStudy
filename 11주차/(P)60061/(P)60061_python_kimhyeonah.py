@@ -16,7 +16,7 @@ def solution(n, build_frame):
         return False
     
     answer = []
-    for x, y, a, b, in build_frame:
+    for x, y, a, b in build_frame:
         if b == 0:
             answer.remove([x, y, a])
             if check():
@@ -26,6 +26,6 @@ def solution(n, build_frame):
             if check():
                 answer.remove([x, y, a])
     
-    answer.sort(key = lambda x: (x[0], x[1], x[2]))
+    answer.sort()
     return answer
 
