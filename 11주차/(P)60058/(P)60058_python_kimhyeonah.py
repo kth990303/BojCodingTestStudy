@@ -30,7 +30,7 @@ def solution(p):
         return u + solution(v)
     
     result = '(' + solution(v) + ')'
-    u = u[1:len(u)-1]
+    u = u[1:-1]
     for i in u:
         if i == '(': result += ')'
         else: result += '('
