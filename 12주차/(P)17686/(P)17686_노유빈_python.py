@@ -4,9 +4,8 @@
 
 def find_HEAD(n): # HEAD를 return 하는 함수
     head = ""
-    for i in range(0,len(list(n))):
-        for j in range(0,len(list(n[i]))):
-            if n[i][j].isdigit()!=True:
+    for file in n:
+        if not file[i].isdigit():
                 head += n[i][j]
             else:
                 return head
