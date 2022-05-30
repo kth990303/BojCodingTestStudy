@@ -63,8 +63,7 @@ def solution(files):
                 t3 = c[i]
                 c[i] = c[j]
                 c[j] = t3
-            else:
-                if int(b[i])>int(b[j]):
+            elif: int(b[i])>int(b[j]):
                     t1 = a[i]
                     a[i] = a[j]
                     a[j] = t1
