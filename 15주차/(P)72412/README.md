@@ -1,0 +1,4 @@
+### 프로그래머스 - 순위 검색
+https://programmers.co.kr/learn/courses/30/lessons/72412
+
+code by. 강윤석, 곽유나, 김규리, 김주혜, 김현아, 노유빈, 박장우, 이동훈, 이지영, 최범준
