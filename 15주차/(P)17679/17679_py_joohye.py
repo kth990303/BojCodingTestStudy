@@ -1,3 +1,4 @@
+
 import numpy as np
 def refresh(board):
     #블록 갱신
